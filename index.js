@@ -15,8 +15,8 @@ App.get('/',(req,res)=>{
 
 
 const vapidKeys = {
-    "publicKey":"BAOqfzYOe5SB8XuKBidsv45Jnsizc6tZAc-vlYVBHxiTrPQfjpNkeVn9U3JV253CLs8NcJpHPFRLi4AnhU2qA8k",
-    "privateKey":"Pj6IqApV3ucxDOD_O70UiRT300X35meBrlI-RkiGyZI"
+    "publicKey":process.env.publickey,
+    "privateKey":process.env.privatekey
 };
 
 webpush.setVapidDetails(
@@ -25,7 +25,7 @@ webpush.setVapidDetails(
     vapidKeys.privateKey
 );
 // mongoose.connect("mongodb://localhost:27017/notDB",{useNewUrlParser: true,useUnifiedTopology: true });
-mongoose.connect("mongodb+srv://shahnawaz:shahnawaz@cluster0.sjpxu.mongodb.net/notDB?authSource=admin&replicaSet=atlas-5zt0b3-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true",{useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect(process.env.mongo,{useNewUrlParser: true,useUnifiedTopology: true });
 
 const notSchema=new mongoose.Schema({
     endpoint:String,
@@ -124,6 +124,6 @@ App.post('/subs',async(req,res)=>{
 
     res.send({'ok':true})
 })
-App.listen(3000,()=>{
+App.listen(process.env.PORT,()=>{
     console.log('Server started');
 })
