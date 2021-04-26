@@ -3,7 +3,7 @@ const cors=require('cors');
 const webpush=require('web-push')
 const App=express();
 const mongoose=require('mongoose');
-
+console.log(process.env.mongo);
 App.use(express.json());
 App.use(cors());
 var notificationDB;
@@ -74,7 +74,12 @@ async function sendNewsletter(req, res) {
 
 
 App.post('/subs',async(req,res)=>{
-    console.log(process.env.path);
+    console.log(process.env.publickey);
+    console.log(process.env.privatekey);
+    console.log(process.env.mongo);
+    console.log("###############");
+console.log('req body is ',req.body )
+    console.log("###############");
     // try{
     // notificationDB =await mongoose.connect("mongodb://localhost:27017/notDB",{useNewUrlParser: true,useUnifiedTopology: true });
     // }catch(e){
@@ -125,5 +130,5 @@ App.post('/subs',async(req,res)=>{
     res.send({'ok':true})
 })
 App.listen(process.env.PORT,()=>{
-    console.log('Server started');
+    console.log('Server started on',process.env.PORT );
 })
