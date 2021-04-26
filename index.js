@@ -74,12 +74,14 @@ async function sendNewsletter(req, res) {
 
 
 App.post('/subs',async(req,res)=>{
+    const body=JSON.parse(req.body.subs);
     console.log(process.env.publickey);
     console.log(process.env.privatekey);
     console.log(process.env.mongo);
     console.log("###############");
 console.log('req body is ',req.body )
     console.log("###############");
+    console.log("body obj is  ",body);
     // try{
     // notificationDB =await mongoose.connect("mongodb://localhost:27017/notDB",{useNewUrlParser: true,useUnifiedTopology: true });
     // }catch(e){
@@ -94,7 +96,7 @@ console.log('req body is ',req.body )
     //  }   
     // });
     // const Notmodel=mongoose.model('not',notSchema);
-    const checkifexist=await Notmodel.findOne({endpoint:req.body.subs.endpoint});
+    const checkifexist=await Notmodel.findOne({endpoint:body.endpoint});
     console.log("check",checkifexist);
     if(checkifexist){
         console.log("subscription already exist!!");
@@ -103,13 +105,13 @@ console.log('req body is ',req.body )
     }
     try{
         console.log("from try block");
-        console.log("p25dh is ",req.body.subs.keys);
-        console.log("auth is ",req.body.subs.keys.auth);
-    const notModel=new Notmodel({endpoint:req.body.subs.endpoint,
+        console.log("p25dh is ",body.keys.p256dh);
+        console.log("auth is ",body.keys.auth);
+    const notModel=new Notmodel({endpoint:body.endpoint,
     expirationTime:null,
     keys:{
-        p256dh:req.body.subs.keys.p256dh,
-        auth:req.body.subs.keys.auth
+        p256dh:req.body.keys.p256dh,
+        auth:req.body.keys.auth
     }
     });
      notModel.save((err)=>{
