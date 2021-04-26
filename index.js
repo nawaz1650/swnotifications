@@ -103,10 +103,9 @@ console.log('req body is ',req.body )
     }
     try{
         console.log("from try block");
-        console.log("p25dh is ",req.body.subs.keys.p256dh);
+        console.log("p25dh is ",req.body.subs.keys);
         console.log("auth is ",req.body.subs.keys.auth);
-    const notModel=new Notmodel({endpoint:
-        req.body.subs.endpoint,
+    const notModel=new Notmodel({endpoint:req.body.subs.endpoint,
     expirationTime:null,
     keys:{
         p256dh:req.body.subs.keys.p256dh,
