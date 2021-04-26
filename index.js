@@ -110,8 +110,8 @@ console.log('req body is ',req.body )
     const notModel=new Notmodel({endpoint:body.endpoint,
     expirationTime:null,
     keys:{
-        p256dh:req.body.keys.p256dh,
-        auth:req.body.keys.auth
+        p256dh:body.keys.p256dh,
+        auth:body.keys.auth
     }
     });
      notModel.save((err)=>{
